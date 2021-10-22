@@ -1,7 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-	<hr>
-	<h1>아무대나 가 새꺄</h1>
+    
+    
+    				<br>
+    				<br>
+				</td>
+			</tr>
+			<tr>
+				<td>아무대나 가 새꺄</td>
+			</tr>
+			<tr>
+				<td>
+					<pre align="left">
+Copylight(c) 종엽쿤	
+함부로 퍼가면 혼나요
+어디갈까? 홈페이지 문의 : 010 - 4084 - 2739
+					</pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
