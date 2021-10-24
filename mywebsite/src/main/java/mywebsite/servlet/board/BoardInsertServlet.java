@@ -1,4 +1,4 @@
-package mywebsite.board.servlet;
+package mywebsite.servlet.board;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package mywebsite.member.servlet;
+package mywebsite.sevlet.member;
 
 import java.io.IOException;
 
