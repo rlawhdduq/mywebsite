@@ -14,7 +14,7 @@
 %>    
 <jsp:include page="/template/top.jsp"></jsp:include>
 <h2>내 정보 페이지</h2>
-<table>
+<table border="1" width="250">
 	<tbody>
 		<tr>
 			<td>아이디 </td>
@@ -41,9 +41,16 @@
 			<td><%=memberDto.getMemberJoin()%> </td>
 		</tr>
 		<tr>
+			<td>포인트 </td>
+			<td><%=memberDto.getMemberPoint()%> point</td>
+		</tr>
+		<tr>
 			<td>등급 </td>
 			<td><%=memberDto.getMemberGrade()%> </td>
 		</tr>
 	</tbody>
 </table>
+<h4><a href="edit.jsp">내정보 수정하기</a></h4>
+<h4><a>회원 탈퇴하기</a></h4>
+<h4><a>포인트 충전하기</a></h4>
 <jsp:include page="/template/bot.jsp"></jsp:include>
