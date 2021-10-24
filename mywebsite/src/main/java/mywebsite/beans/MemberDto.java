@@ -11,6 +11,13 @@ public class MemberDto {
 	private Date memberBirth;
 	private Date memberJoin;
 	private String memberGrade;
+	private int memberPoint;
+	public int getMemberPoint() {
+		return memberPoint;
+	}
+	public void setMemberPoint(int memberPoint) {
+		this.memberPoint = memberPoint;
+	}
 	public MemberDto() {
 		super();
 		// TODO 자동 생성된 생성자 스텁

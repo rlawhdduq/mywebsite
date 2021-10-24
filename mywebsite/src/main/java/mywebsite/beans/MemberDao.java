@@ -11,7 +11,7 @@ public class MemberDao {
 	public void memberJoin(MemberDto memberDto) throws Exception {
 		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
 		
-		String query = "insert into member values(?, ?, ?, ?, ?, ?, sysdate, '준회원')";
+		String query = "insert into member values(?, ?, ?, ?, ?, ?, sysdate, '준회원', 100)";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, memberDto.getMemberId());
 		ps.setString(2, memberDto.getMemberNick());
@@ -78,6 +78,7 @@ public class MemberDao {
 			memberDto.setMemberBirth(rs.getDate("member_birth"));
 			memberDto.setMemberJoin(rs.getDate("member_join"));
 			memberDto.setMemberGrade(rs.getString("member_grade"));
+			memberDto.setMemberPoint(rs.getInt("member_point"));
 		} else {
 			memberDto = null;
 		}
