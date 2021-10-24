@@ -11,7 +11,7 @@ public class MemberDao {
 	public void memberJoin(MemberDto memberDto) throws Exception {
 		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
 		
-		String query = "insert into member values(?, ?, ?, ?, ?, ?, to_date(sysdate, 'YYYY-MM-DD'), '준회원')";
+		String query = "insert into member values(?, ?, ?, ?, ?, ?, sysdate, '준회원')";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, memberDto.getMemberId());
 		ps.setString(2, memberDto.getMemberNick());
@@ -53,6 +53,36 @@ public class MemberDao {
 		
 		con.close();
 		
+		return memberDto;
+	}
+	
+	//3. 내정보 조회 메소드
+	public MemberDto lookUp(String memberId) throws Exception{
+		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		
+		String query = "select * from member where member_id = ?";
+		PreparedStatement ps = con.prepareStatement(query);
+		
+		ps.setString(1, memberId);
+
+		ResultSet rs = ps.executeQuery();
+		
+		MemberDto memberDto;
+		if(rs.next()) {
+			memberDto = new MemberDto();
+			memberDto.setMemberId(rs.getString("member_id"));
+			memberDto.setMemberPw(rs.getString("member_pw"));
+			memberDto.setMemberNick(rs.getString("member_nick"));
+			memberDto.setMemberEmail(rs.getString("member_email"));
+			memberDto.setMemberPhone(rs.getString("member_phone"));
+			memberDto.setMemberBirth(rs.getDate("member_birth"));
+			memberDto.setMemberJoin(rs.getDate("member_join"));
+			memberDto.setMemberGrade(rs.getString("member_grade"));
+		} else {
+			memberDto = null;
+		}
+		
+		con.close();
 		return memberDto;
 	}
 }
