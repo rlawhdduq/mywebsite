@@ -26,6 +26,18 @@
 				<td><%=memberNick%>님 환영합니다~</td>
 				<%} %>
 			</tr>
+			<tr align = "left">
+			<td>
+			<%if(isLogin){ %>
+				<a href="<%=request.getContextPath()%>/member/mypage.jsp">내정보</a>
+				<a href="<%=request.getContextPath()%>/member/logout.mws">로그아웃</a>
+			<%} else { %>
+				<a href="<%=request.getContextPath()%>/member/join.jsp">회원가입</a>
+				<a href="<%=request.getContextPath()%>/member/login.jsp">로그인</a>
+			<%} %>
+				<a href="<%=request.getContextPath()%>/board/list.jsp">게시판</a>
+			</td>
+			</tr>
 			<tr>
 				<td>
 		

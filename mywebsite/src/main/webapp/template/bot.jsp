@@ -7,7 +7,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>아무대나 가 새꺄</td>
+				<td>어디갈까?(Proto-Type)</td>
 			</tr>
 			<tr>
 				<td>
