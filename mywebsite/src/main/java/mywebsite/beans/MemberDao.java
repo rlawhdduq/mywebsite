@@ -106,4 +106,19 @@ public class MemberDao {
 		return result > 0;
 		
 	}
+	
+	//5. 회원 탈퇴 메소드
+	public void memberQuit(String memberPw, String memberId) throws Exception{
+		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		
+		String query = "delete member where member_id = ? and member_pw = ?";
+		PreparedStatement ps = con.prepareStatement(query);
+		
+		ps.setString(1, memberId);
+		ps.setString(2, memberPw);
+		
+		ps.execute();
+		
+		con.close();
+	}
 }
