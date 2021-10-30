@@ -30,8 +30,8 @@
 						
 						driverClassName="oracle.jdbc.OracleDriver"
 						url="jdbc:oracle:thin:@localhost:1521:orcl"
-						username="kh"
-						password="kh"
+						username="mws"
+						password="mws"
 						
 						maxTotal="20"
 						minIdle="0"
