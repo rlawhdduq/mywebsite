@@ -9,7 +9,7 @@ public class BoardDao {
 	
 	//1. 게시판 등록 메소드
 	public void boardInsert(BoardDto boardDto)throws Exception{
-		Connection con = JdbcUtils.connect(USERNAME,PASSWORD);
+		Connection con = JdbcUtils.connect2();
 		
 		String query = "insert into board values(board_seq.nextval, "
 				+ "?, ?, ?, ?, to_date(sysdate, 'YYYY-MM-DD HH24:MI:SS'), 0, 0, 0)";

@@ -9,7 +9,7 @@ public class MemberDao {
 	
 	//1. 회원가입 처리 메소드
 	public void memberJoin(MemberDto memberDto) throws Exception {
-		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		Connection con = JdbcUtils.connect2();
 		
 		String query = "insert into member values(?, ?, ?, ?, ?, ?, sysdate, '준회원', 100)";
 		PreparedStatement ps = con.prepareStatement(query);
@@ -26,7 +26,7 @@ public class MemberDao {
 	
 	//2. 로그인 처리 메소드
 	public MemberDto memberLogin(String memberId, String memberPw) throws Exception{
-		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		Connection con = JdbcUtils.connect2();
 		
 		String query = "select * from member where member_id = ? and member_pw = ?";
 		PreparedStatement ps = con.prepareStatement(query);
@@ -58,7 +58,7 @@ public class MemberDao {
 	
 	//3. 내정보 조회 메소드
 	public MemberDto lookUp(String memberId) throws Exception{
-		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		Connection con = JdbcUtils.connect2();
 		
 		String query = "select * from member where member_id = ?";
 		PreparedStatement ps = con.prepareStatement(query);
@@ -89,7 +89,7 @@ public class MemberDao {
 	
 	//4. 내 정보 수정 메소드
 	public boolean memberEdit(MemberDto memberDto) throws Exception{
-		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		Connection con = JdbcUtils.connect2();
 		
 		String query = "update member set member_nick = ?, member_email = ?, member_phone = ? where member_id = ? and member_pw = ?";
 		PreparedStatement ps = con.prepareStatement(query);
@@ -109,7 +109,7 @@ public class MemberDao {
 	
 	//5. 회원 탈퇴 메소드
 	public void memberQuit(String memberPw, String memberId) throws Exception{
-		Connection con = JdbcUtils.connect(USERNAME, PASSWORD);
+		Connection con = JdbcUtils.connect2();
 		
 		String query = "delete member where member_id = ? and member_pw = ?";
 		PreparedStatement ps = con.prepareStatement(query);
