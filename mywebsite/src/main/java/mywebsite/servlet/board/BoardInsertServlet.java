@@ -23,11 +23,16 @@ public class BoardInsertServlet extends HttpServlet{
 			board.setBoardTitle(req.getParameter("boardTitle"));
 			board.setBoardContent(req.getParameter("boardContent"));
 			
-			//처리 : boardDao.boardInsert메소드
 			BoardDao boardDao = new BoardDao();
+			//처리[1] : 게시글 등록 전에 시퀀스 번호를 미리 뽑아온다.
+			int nowSeq = boardDao.nowSeq();
+			board.setBoardNo(nowSeq);
+			board.setBoardGroupno(nowSeq);
+			
+			//처리[2] : boardDao.boardInsert메소드
 			boardDao.boardInsert(board);
 			
-			resp.sendRedirect("./list.jsp");
+			resp.sendRedirect("./detail.jsp?boardNo="+nowSeq);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
