@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+	<!-- 
+		이곳에서 DB연결을 수행하게끔 코드를 작성한다(전문 업체를 만든다)
+		그리고 DB연결을 내가 직접 하는게 아니라 전문업체에게 맡기는 형식으로 바꾼다. 
+	-->
+	
+	
+	<!-- 
+		name = 부를 db의 타입과 이름(mine-type)으로 작성
+		type = 부를 자원의 최상위 객체
+		auth = "Container" : 실행중인 모든 프로그램
+		
+		driverClassName = 부를 드라이버의 클래스 경로
+		url = 라이브러리 : db : 타입 :@서버아이피 : 열린포트 : dbtype
+		username = db에 연결할 아이디
+		password = 아이디의 비밀번호
+		
+		maxTotal = 총 접속할 수 있는 사용자의 수
+		minIdle = 대기좌석의 최소값
+		maxIdle = 대기좌석의 최대값
+		maxWaitMillis = 연결이 모두 사용중 일 경우의 대기시간(초과시 내보냄)
+	 -->
+	<Resource
+						name="jdbc/oracle" 
+						type="javax.sql.DataSource"
+						auth="Container"
+						
+						driverClassName="oracle.jdbc.OracleDriver"
+						url="jdbc:oracle:thin:@localhost:1521:orcl"
+						username="kh"
+						password="kh"
+						
+						maxTotal="20"
+						minIdle="0"
+						maxIdle="5"
+						maxWaitMillis="3000"
+		
+	/>
+</Context>
