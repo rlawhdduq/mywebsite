@@ -13,7 +13,35 @@ public class BoardDto {
 	private int boardHit;
 	private int boardLike;
 	private int boardUnlike;
+	private int boardSuperno;
+	private int boardGroupno;
+	private int boardReply;
+	private int boardDepth;
 	
+	public int getBoardSuperno() {
+		return boardSuperno;
+	}
+	public void setBoardSuperno(int boardSuperno) {
+		this.boardSuperno = boardSuperno;
+	}
+	public int getBoardGroupno() {
+		return boardGroupno;
+	}
+	public void setBoardGroupno(int boardGroupno) {
+		this.boardGroupno = boardGroupno;
+	}
+	public int getBoardReply() {
+		return boardReply;
+	}
+	public void setBoardReply(int boardReply) {
+		this.boardReply = boardReply;
+	}
+	public int getBoardDepth() {
+		return boardDepth;
+	}
+	public void setBoardDepth(int boardDepth) {
+		this.boardDepth = boardDepth;
+	}
 	public int getBoardNo() {
 		return boardNo;
 	}
