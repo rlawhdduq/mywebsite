@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mywebsite.beans.HistoryDao;
+import mywebsite.beans.HistoryDto;
 import mywebsite.beans.MemberDao;
 import mywebsite.beans.PointDao;
 
@@ -25,6 +27,15 @@ public class PointChargeServlet extends HttpServlet{
 			int pointAmount = pointDao.pointAmount(pointNo);
 			MemberDao memberDao = new MemberDao();
 			boolean isCharge = memberDao.pointRefresh(memberId, pointAmount);
+			
+			//히스토리에 내역을 등록한다.
+			HistoryDto historyDto = new HistoryDto();
+			historyDto.setMemberId(memberId);
+			historyDto.setHistoryMemo("포인트 구입");
+			historyDto.setHistoryAmount(pointAmount);
+			
+			HistoryDao historyDao = new HistoryDao();
+			historyDao.historyInsert(historyDto);
 			
 			//출력
 			if(isCharge) {
