@@ -1,3 +1,8 @@
+<%@page import="mywebsite.beans.CancelDto"%>
+<%@page import="mywebsite.beans.CancelDao"%>
+<%@page import="mywebsite.beans.HistoryDto"%>
+<%@page import="java.util.List"%>
+<%@page import="mywebsite.beans.HistoryDao"%>
 <%@page import="mywebsite.beans.MemberDto"%>
 <%@page import="mywebsite.beans.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,6 +16,13 @@
 	MemberDao memberDao = new MemberDao();
 	MemberDto memberDto = memberDao.lookUp(memberId);
 	
+	//히스토리(포인트 충전 내역)를 조회하는 코드
+	HistoryDao historyDao = new HistoryDao();
+	List<HistoryDto> historyList = historyDao.historyList(memberId);
+	
+	//취소내역 테이블에 내용이 있는지 확인
+	CancelDao cancelDao = new CancelDao();
+	int cancelNo = cancelDao.cancelList();
 %>    
 <jsp:include page="/template/top.jsp"></jsp:include>
 <h2>내 정보 페이지</h2>
@@ -52,5 +64,30 @@
 </table>
 <h4><a href="edit.jsp">내정보 수정하기</a></h4>
 <h4><a href="quit.jsp">회원 탈퇴하기</a></h4>
+<br><br>
+<table width="70%" border="1">
+	<thead>
+		<tr>
+			<th width="10%">번호</th>
+			<th width="25%">날짜</th>
+			<th width="40%">충전내용</th>
+			<th width="15%">충전금액</th>
+			<th width="20%">비고</th>
+		</tr>
+	</thead>
+	<tbody align="center">
+		<%for(HistoryDto historyDto : historyList){ %>
+		<tr>
+			<td><%=historyDto.getHistoryNo()%></td>
+			<td><%=historyDto.getHistoryTime()%></td>
+			<td><%=historyDto.getHistoryMemo()%></td>
+			<td><%=historyDto.getHistoryAmount()%></td>
+			<%if(historyDto.getHistoryNo() != cancelNo){ %>
+			<td><a href="../point/cancel.mws?historyNo=<%=historyDto.getHistoryNo()%>">철회</a></td>
+			<%} %>
+		</tr>
+		<%} %>
+	</tbody>
+</table>
 <h4><a href="../point/charge.jsp">포인트 충전하기</a></h4>
 <jsp:include page="/template/bot.jsp"></jsp:include>
