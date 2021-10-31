@@ -52,5 +52,5 @@
 </table>
 <h4><a href="edit.jsp">내정보 수정하기</a></h4>
 <h4><a href="quit.jsp">회원 탈퇴하기</a></h4>
-<h4><a>포인트 충전하기</a></h4>
+<h4><a href="../point/charge.jsp">포인트 충전하기</a></h4>
 <jsp:include page="/template/bot.jsp"></jsp:include>
