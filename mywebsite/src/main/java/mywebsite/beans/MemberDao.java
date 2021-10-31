@@ -127,7 +127,7 @@ public class MemberDao {
 	public boolean pointRefresh(String memberId, int pointAmount) throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
-		String query = "update member set member_point = member_point + ? where member_id = ?";
+		String query = "update member set member_point = ? + member_point where member_id = ?";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, pointAmount);
 		ps.setString(2, memberId);
