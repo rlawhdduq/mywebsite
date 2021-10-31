@@ -121,4 +121,21 @@ public class MemberDao {
 		
 		con.close();
 	}
+	
+
+	//6. 포인트 내역 업데이트 메소드
+	public boolean pointRefresh(String memberId, int pointAmount) throws Exception{
+		Connection con = JdbcUtils.connect2();
+		
+		String query = "update member set member_point = member_point + ? where member_id = ?";
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setInt(1, pointAmount);
+		ps.setString(2, memberId);
+		
+		int result = ps.executeUpdate();
+		
+		con.close();
+		
+		return result > 0;
+	}
 }
