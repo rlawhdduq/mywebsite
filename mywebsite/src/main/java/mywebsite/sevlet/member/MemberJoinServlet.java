@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mywebsite.beans.HistoryDao;
+import mywebsite.beans.HistoryDto;
 import mywebsite.beans.MemberDao;
 import mywebsite.beans.MemberDto;
 
@@ -29,6 +31,15 @@ public class MemberJoinServlet extends HttpServlet{
 			//처리 : MemberDao.memberJoin
 			MemberDao memberDao = new MemberDao();
 			memberDao.memberJoin(memberDto);
+			
+			//히스토리에 등록
+			HistoryDto historyDto = new HistoryDto();
+			historyDto.setMemberId(memberDto.getMemberId());
+			historyDto.setHistoryMemo("가입 축하 포인트");
+			historyDto.setHistoryAmount(100);
+			
+			HistoryDao historyDao = new HistoryDao();
+			historyDao.historyInsert(historyDto);
 			
 			//출력 : join_success로 Redirect
 			resp.sendRedirect("join_success.jsp");
