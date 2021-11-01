@@ -7,4 +7,4 @@
 - int cancelNo = cancelDao.cancelList();
 - 이렇게 되어있는데 전체 구문을 조회해서 그 값을 인트 하나로 넘긴다는거 자체가 말이 안된다.
 - cancelList()가 아니라 cancelSearch(historyNo)로 바꿔야 하는게 맞는 것 같다.
-- 
+- 주소창에 검색해서 반복접근하지 못하도록 서블릿에서 대책을 강구해야 할 것 같다.
