@@ -22,6 +22,7 @@ public class BoardInsertServlet extends HttpServlet{
 			board.setMemberNick((String)req.getSession().getAttribute("loginNick"));
 			board.setBoardTitle(req.getParameter("boardTitle"));
 			board.setBoardContent(req.getParameter("boardContent"));
+			board.setBoardAddr(req.getParameter("boardAddr"));
 			
 			BoardDao boardDao = new BoardDao();
 			//처리[1] : 게시글 등록 전에 시퀀스 번호를 미리 뽑아온다.
