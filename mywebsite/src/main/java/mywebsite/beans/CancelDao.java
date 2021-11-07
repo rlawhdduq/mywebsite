@@ -9,30 +9,60 @@ import java.util.List;
 public class CancelDao {
 	
 	//1. 포인트 충전 내역 철회 시 cancel 테이블에 내역을 등록하도록 설정(여기에 데이터가 있으면 충전 취소 된 것으로 간주)
-	public void pointCancel(int historyNo) throws Exception{
+	public void pointCancel(int historyNo, String memberId) throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
-		String query = "insert into cancel values(?)";
+		String query = "insert into cancel values(?, ?)";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, historyNo);
+		ps.setString(2, memberId);
 		ps.execute();
 		
 		con.close();
 	}
 	
-	//2. 포인트 철회 내역이 있는지 확인(테이블 필드가 1개이므로 int값만 나오니까 그걸 비교해서 있으면 철회한거고 없으면 철회한적 없는걸로 처리)
-	public int cancelList() throws Exception{
+	//2. 포인트 철회 내역 출력 메소드
+	public List<CancelDto> cancelList() throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
 		String query = "select * from cancel";
 		PreparedStatement ps = con.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
 		
-		rs.next();
+		List<CancelDto> cancelList = new ArrayList<>();
 		
-		int cancel = rs.getInt("history_no");		
+		while(rs.next()) {
+			CancelDto cancelDto = new CancelDto();
+			cancelDto.setHistoryNo(rs.getInt("history_no"));
+			cancelDto.setMemberId(rs.getString("member_id"));
+			
+			cancelList.add(cancelDto);
+		}
 		con.close();
 		
-		return cancel;
+		return cancelList;
+	}
+	
+	//3. 포인트 철회 내역이 있는지 확인하는 메소드(굳이 따지자면 키워드 검색?)
+	public CancelDto cancelSearch(int hisotryNo) throws Exception{
+		Connection con = JdbcUtils.connect2();
+		
+		String query = "select * from cancel where history_no = ? order by history_no desc";
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setInt(1, hisotryNo);
+		ResultSet rs = ps.executeQuery();
+		
+		CancelDto cancelDto;
+		if(rs.next()) {
+			cancelDto = new CancelDto();
+			cancelDto.setHistoryNo(rs.getInt("history_no"));
+			cancelDto.setMemberId(rs.getString("member_id"));
+		} else {
+			cancelDto = null;
+		}
+		
+		con.close();
+		
+		return cancelDto;
 	}
 }
