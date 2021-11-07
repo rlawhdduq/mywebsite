@@ -2,6 +2,15 @@ package mywebsite.beans;
 
 public class CancelDto {
 	private int historyNo;
+	private String memberId;
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 
 	public int getHistoryNo() {
 		return historyNo;
