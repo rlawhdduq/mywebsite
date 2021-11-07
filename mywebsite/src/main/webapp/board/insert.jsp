@@ -18,6 +18,16 @@
 				<td> <input type="text" name="boardTitle"></td>
 			</tr>
 			<tr>
+				<td>도 : </td>
+				<td> <input type="text" name="addrDo" placeholder="선택입력"></td>
+				<td>시 : </td>
+				<td> <input type="text" name="addrSi" required placeholder="필수입력"></td>
+				<td>구 : </td>
+				<td> <input type="text" name="addrGoo" required placeholder="필수입력"></td>
+				<td>동 : </td>
+				<td> <input type="text" name="addrDong" required placeholder="필수입력"></td>
+			</tr>
+			<tr>
 				<td colspan="2"><textarea name="boardContent" rows="30" cols="50"></textarea></td>
 			</tr>
 			<tr>
