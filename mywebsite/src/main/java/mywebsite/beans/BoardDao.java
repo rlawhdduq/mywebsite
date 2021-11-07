@@ -14,7 +14,7 @@ public class BoardDao {
 		Connection con = JdbcUtils.connect2();
 		
 		String query = "insert into board values(?, "
-				+ "?, ?, ?, ?,sysdate, 0, 0, 0, 0, null, ?, 0)";
+				+ "?, ?, ?, ?,sysdate, 0, 0, 0, 0, null, ?, 0, ?)";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, boardDto.getBoardNo());
 		ps.setString(2, boardDto.getMemberId());
@@ -22,7 +22,7 @@ public class BoardDao {
 		ps.setString(4, boardDto.getBoardTitle());
 		ps.setString(5, boardDto.getBoardContent());
 		ps.setInt(6, boardDto.getBoardGroupno());
-
+		ps.setString(7, boardDto.getBoardAddr());
 		ps.execute();
 			
 		con.close();
@@ -31,7 +31,7 @@ public class BoardDao {
 	public void boardReplyInsert(BoardDto boardDto) throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
-		String query = "insert into board values(?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?, ?)";
+		String query = "insert into board values(?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?, ?, ?)";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, boardDto.getBoardNo());
 		ps.setString(2, boardDto.getMemberId());
@@ -41,6 +41,7 @@ public class BoardDao {
 		ps.setInt(6, boardDto.getBoardSuperno());
 		ps.setInt(7, boardDto.getBoardGroupno());
 		ps.setInt(8, boardDto.getBoardDepth());
+		ps.setString(9, boardDto.getBoardAddr());
 		
 		ps.execute();
 		
@@ -71,6 +72,7 @@ public class BoardDao {
 			boardDto.setBoardSuperno(rs.getInt("board_superno"));
 			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 			boardDto.setBoardDepth(rs.getInt("board_depth"));
+			boardDto.setBoardAddr(rs.getString("board_addr"));
 			
 			boardList.add(boardDto);
 		}
@@ -121,6 +123,7 @@ public class BoardDao {
 			boardDto.setBoardSuperno(rs.getInt("board_superno"));
 			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 			boardDto.setBoardDepth(rs.getInt("board_depth"));
+			boardDto.setBoardAddr(rs.getString("board_addr"));
 		} else {
 			boardDto = null;
 		}
@@ -134,11 +137,12 @@ public class BoardDao {
 	public boolean boardEdit(BoardDto boardDto)  throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
-		String query = "update board set board_title = ?, board_content = ? where board_no = ?";
+		String query = "update board set board_title = ?, board_content = ?, board_addr = ? where board_no = ?";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, boardDto.getBoardTitle());
 		ps.setString(2, boardDto.getBoardContent());
-		ps.setInt(3, boardDto.getBoardNo());
+		ps.setString(3, boardDto.getBoardAddr());
+		ps.setInt(4, boardDto.getBoardNo());
 		
 		int result = ps.executeUpdate();
 		
@@ -189,6 +193,7 @@ public class BoardDao {
 			boardDto.setBoardSuperno(rs.getInt("board_superno"));
 			boardDto.setBoardGroupno(rs.getInt("board_groupno"));
 			boardDto.setBoardDepth(rs.getInt("board_depth"));
+			boardDto.setBoardAddr(rs.getString("board_addr"));
 			
 			boardList.add(boardDto);
 		}
