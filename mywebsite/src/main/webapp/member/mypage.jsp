@@ -22,7 +22,8 @@
 	
 	//취소내역 테이블에 내용이 있는지 확인
 	CancelDao cancelDao = new CancelDao();
-	int cancelNo = cancelDao.cancelList();
+	
+	CancelDto cancelDto;
 %>    
 <jsp:include page="/template/top.jsp"></jsp:include>
 <h2>내 정보 페이지</h2>
@@ -82,11 +83,27 @@
 			<td><%=historyDto.getHistoryTime()%></td>
 			<td><%=historyDto.getHistoryMemo()%></td>
 			<td><%=historyDto.getHistoryAmount()%></td>
-			<%if(historyDto.getHistoryNo() != cancelNo){ %>
-			<td><a href="../point/cancel.mws?historyNo=<%=historyDto.getHistoryNo()%>">철회</a></td>
-			<%} %>
+			<%//만약 취소내역이 없으면 철회버튼 활성화
+				cancelDto = cancelDao.cancelSearch(historyDto.getHistoryNo());
+				if(cancelDto == null){
+					if(historyDto.getHistoryMemo().equals("포인트 구입")){%>
+					<td><a href="../point/cancel.mws?historyNo=<%=historyDto.getHistoryNo()%>">철회</a></td>					
+				<%}
+					} else {
+					int cancelNo = cancelDto.getHistoryNo();
+					int historyNo = historyDto.getHistoryNo();
+// 					String cancelNo = String.valueOf(cancelDto.getHistoryNo());
+// 					String historyNo = String.valueOf(historyDto.getHistoryNo());
+					//철회 한 내역이 있으면?
+					boolean isCancel = !(cancelNo == historyNo);
+					
+					if(isCancel){ 
+					} else {%>
+					<td><a href="#">ㅎㅎ</a></td>
+					<%}
+				}
+			}%>		
 		</tr>
-		<%} %>
 	</tbody>
 </table>
 <h4><a href="../point/charge.jsp">포인트 충전하기</a></h4>
