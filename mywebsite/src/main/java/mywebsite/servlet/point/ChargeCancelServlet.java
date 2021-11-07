@@ -24,7 +24,7 @@ public class ChargeCancelServlet extends HttpServlet{
 			
 			//처리 : 취소 등록
 			CancelDao cancelDao = new CancelDao();
-			cancelDao.pointCancel(historyNo);
+			cancelDao.pointCancel(historyNo, memberId);
 			
 			HistoryDao historyDao = new HistoryDao();
 			//취소된 내역을 히스토리에 등록 =>여기서는 No를 저장해줘야 구분이 되니까 저장한다.
