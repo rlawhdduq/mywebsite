@@ -9,6 +9,7 @@ public class BoardDto {
 	private String memberNick;
 	private String boardTitle;
 	private String boardContent;
+	private String boardAddr;	
 	private Date boardUploadTime;
 	private int boardHit;
 	private int boardLike;
@@ -18,6 +19,12 @@ public class BoardDto {
 	private int boardReply;
 	private int boardDepth;
 	
+	public String getBoardAddr() {
+		return boardAddr;
+	}
+	public void setBoardAddr(String boardAddr) {
+		this.boardAddr = boardAddr;
+	}
 	public int getBoardSuperno() {
 		return boardSuperno;
 	}
