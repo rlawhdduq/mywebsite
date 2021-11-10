@@ -34,11 +34,11 @@
 			<th>글 번호</th>
 			<th width="40%">제목</th>
 			<th>작성자</th>
-			<th>조회수</th>
+			<th width="8%">조회수</th>
 			<th width="15%">좋아요/싫어요</th>
 			<th>상위글번호</th>
 			<th>그룹번호</th>
-			<th>차수</th>
+			<th width="5%">차수</th>
 		</tr>
 	</thead>
 	<tbody align="center">
@@ -48,7 +48,7 @@
 						<%=boardDto.getBoardNo()%>
 					</td>
 					<td align="left">
-						<a href="./detail.jsp?boardNo=<%=boardDto.getBoardNo()%>"><%=boardDto.getBoardTitle()%></a>
+						<a href="./detail.jsp?boardNo=<%=boardDto.getBoardNo()%>">(<%=boardDto.getBoardAddr()%>)<%=boardDto.getBoardTitle()%></a>
 					</td>
 					<td>
 						<%=boardDto.getMemberNick()%>
