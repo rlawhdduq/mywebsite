@@ -9,6 +9,15 @@
 - cancelList()가 아니라 cancelSearch(historyNo)로 바꿔야 하는게 맞는 것 같다.
 - 주소창에 검색해서 반복접근하지 못하도록 서블릿에서 대책을 강구해야 할 것 같다.
 
+첫 번째 문제점 해결 완료
+---> 해결방법. 받아온 historyNo가 cancel테이블에 있으면 철회 링크를 보여주지 않고
+              없으면 링크를 보여준다.
+              철회 시 cancel테이블에 historyNo와 memberId(쓰진않음)를 받아서 저장한다.
+              cancelDao에 historyNo를 이용해 조회하는 메소드를 만들었다.
+              history foreach문에 cancelDto = cancelDao.cancelSearch(historyDto.getHistoryNo())를 만들었고
+              cancelDto == null이고 historyDto.getHistoryMemo().equals("포인트 구입") 이면 철회 링크를 보여주게 끔 만들었다.
+              
+
 첫 번째 개선안.
   - db에 api를 적용시킬 줄을 모르니 그거 하는방법 찾느라 시간버릴바에
   - 그냥 주소를 도(선택), (시, 구, 동(필수)) 이렇게 각각 입력받고 서블릿에서 합쳐서 세터로 저장한 뒤 디비로 보내자.
