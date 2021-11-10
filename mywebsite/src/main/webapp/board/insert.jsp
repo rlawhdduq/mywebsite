@@ -28,7 +28,7 @@
 				<td> <input type="text" name="addrDong" required placeholder="필수입력"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><textarea name="boardContent" rows="30" cols="50"></textarea></td>
+				<td colspan="2"><textarea name="boardContent" rows="30" cols="50" required></textarea></td>
 			</tr>
 			<tr>
 				<td align="right" colspan="2"><input type="submit" value="작성하기"></td>
