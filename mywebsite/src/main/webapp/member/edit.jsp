@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td>핸드폰 : </td>
-				<td><input type="email" name="memberPhone" value="<%=memberDto.getMemberPhoneString()%>"></td>
+				<td><input type="tel" name="memberPhone" value="<%=memberDto.getMemberPhoneString()%>"></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
