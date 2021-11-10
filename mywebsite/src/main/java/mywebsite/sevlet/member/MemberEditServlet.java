@@ -22,7 +22,7 @@ public class MemberEditServlet extends HttpServlet{
 			memberDto.setMemberPw(req.getParameter("memberPw"));
 			memberDto.setMemberNick(req.getParameter("memberNick"));
 			memberDto.setMemberEmail(req.getParameter("memberEmail"));
-			memberDto.setMemberPhone(req.getParameter("memberPhoen"));
+			memberDto.setMemberPhone(req.getParameter("memberPhone"));
 			
 			//처리 memberDao.memberEdit 메소드
 			MemberDao memberDao = new MemberDao();
