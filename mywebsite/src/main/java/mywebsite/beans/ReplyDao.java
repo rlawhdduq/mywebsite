@@ -29,6 +29,7 @@ public class ReplyDao {
 			reply.setRating(rs.getInt("rating_no"));
 			reply.setReplyLike(rs.getInt("reply_like"));
 			reply.setReplyUnLike(rs.getInt("reply_unlike"));
+			reply.setReplyUpload(rs.getDate(("reply_upload")));
 			
 			replyList.add(reply);
 		}
@@ -42,7 +43,7 @@ public class ReplyDao {
 	public void replyInsert(ReplyDto replyDto) throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
-		String query = "insert into reply values(reply_seq.nextval, ?, ?, ?, 0, 0, ?)";
+		String query = "insert into reply values(reply_seq.nextval, ?, ?, ?, 0, 0, ?, sysdate)";
 		PreparedStatement ps = con.prepareStatement(query);
 		ps.setString(1, replyDto.getMemberId());
 		ps.setInt(2, replyDto.getBoardNo());
