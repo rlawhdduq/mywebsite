@@ -14,6 +14,8 @@
 	boolean isMine = boardDto.getMemberId().equals(memberId);
 %>
 <h2>게시글 상세보기 페이지</h2>
+SuperNo = <%=boardDto.getBoardSuperno()%>
+GroupNo = <%=boardDto.getBoardGroupno()%>
 <table width="50%">
 	<tbody>
 		<tr>
@@ -43,4 +45,5 @@
 	<a href="./delete.mws?boardNo=<%=boardDto.getBoardNo()%>">삭제</a>
 </h5>
 <%} %>
+<h5><a href="./insert.jsp?boardNo=<%=boardDto.getBoardNo()%>&superNo=<%=boardDto.getBoardNo()%>">답글쓰기</a></h5>
 <jsp:include page="/template/bot.jsp"></jsp:include>  
