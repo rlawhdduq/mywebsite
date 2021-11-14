@@ -26,7 +26,7 @@ public class ReplyDao {
 			reply.setMemberId(rs.getString("member_id"));
 			reply.setReplyContent(rs.getString("reply_content"));
 			reply.setBoardNo(rs.getInt("board_no"));
-			reply.setRating(rs.getInt("rating_no"));
+			reply.setRating(rs.getInt("rating"));
 			reply.setReplyLike(rs.getInt("reply_like"));
 			reply.setReplyUnLike(rs.getInt("reply_unlike"));
 			reply.setReplyUpload(rs.getDate(("reply_upload")));
