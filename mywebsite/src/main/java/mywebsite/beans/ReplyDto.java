@@ -1,5 +1,7 @@
 package mywebsite.beans;
 
+import java.sql.Date;
+
 public class ReplyDto {
 	private int replyNo;
 	private String replyContent;
@@ -7,6 +9,13 @@ public class ReplyDto {
 	private int boardNo;
 	private int rating;
 	private int replyLike;
+	private Date replyUpload;
+	public Date getReplyUpload() {
+		return replyUpload;
+	}
+	public void setReplyUpload(Date replyUpload) {
+		this.replyUpload = replyUpload;
+	}
 	public String getReplyContent() {
 		return replyContent;
 	}
