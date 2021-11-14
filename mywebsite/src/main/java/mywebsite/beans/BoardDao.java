@@ -48,11 +48,18 @@ public class BoardDao {
 		con.close();
 	}
 	
-	//3. 게시글 조회 메소드
+	//3. 게시글 조회 메소드//트리정렬 적용
 	public List<BoardDto> boardList() throws Exception{
 		Connection con = JdbcUtils.connect2();
 		
-		String query = "select * from board order by board_no desc";
+		String query = "select * from ("+
+				"select rownum rn, tmp.* from ("+
+					"select * from board "
+					+ "connect by prior board_no = board_superno "
+					+ "start with board_superno is null "
+					+ "order siblings by board_groupno desc, board_no asc"
+				+ ")tmp"+
+			")where rn between 0 and 10";
 		PreparedStatement ps = con.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
 		
@@ -201,6 +208,20 @@ public class BoardDao {
 		con.close();
 		
 		return boardList;
+	}
+	
+	//9. 댓글개수 업데이트 메소드
+	public boolean boardReplyCountUpdate(int boardNo) throws Exception{
+		Connection con = JdbcUtils.connect2();
+		
+		String query = "update board set board_reply = board_reply+1 where board_no = ?";
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setInt(1, boardNo);
+		int result = ps.executeUpdate();
+		
+		con.close();
+		
+		return result > 0;
 	}
 	
 }
