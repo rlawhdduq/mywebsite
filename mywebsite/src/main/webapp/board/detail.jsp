@@ -14,8 +14,6 @@
 	boolean isMine = boardDto.getMemberId().equals(memberId);
 %>
 <h2>게시글 상세보기 페이지</h2>
-SuperNo = <%=boardDto.getBoardSuperno()%>
-GroupNo = <%=boardDto.getBoardGroupno()%>
 <table width="50%">
 	<tbody>
 		<tr>
