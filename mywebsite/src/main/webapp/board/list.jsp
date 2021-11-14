@@ -48,7 +48,15 @@
 						<%=boardDto.getBoardNo()%>
 					</td>
 					<td align="left">
-						<a href="./detail.jsp?boardNo=<%=boardDto.getBoardNo()%>">(<%=boardDto.getBoardAddr()%>)<%=boardDto.getBoardTitle()%></a>
+						<%for(int i = 0; i < boardDto.getBoardDepth(); i++){ %>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<%} %>
+						<a href="./detail.jsp?boardNo=<%=boardDto.getBoardNo()%>">
+							(<%=boardDto.getBoardAddr()%>)<%=boardDto.getBoardTitle()%>
+							<%if(boardDto.getBoardReply() > 0) {%>
+							[<%=boardDto.getBoardReply()%>]
+							<%} %>
+						</a>
 					</td>
 					<td>
 						<%=boardDto.getMemberNick()%>
