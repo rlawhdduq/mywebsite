@@ -84,7 +84,13 @@
 		<tbody>
 			<%for(ReplyDto reply : replyList){ %>
 			<tr>
-				<td><%=reply.getMemberId()%> / <%=reply.getRating()%></td>
+				<td>
+				<%if(boardDto.getMemberId().equals(reply.getMemberId())){//게시글작성자와 댓글 작성자가 같으면 %>
+				[작성자]<%=reply.getMemberId()%>
+				<%} else {%>
+					<%=reply.getMemberId()%>
+				 <%} %>
+				/ <%=reply.getRating()%></td>
 				<td><%=reply.getReplyContent()%></td>
 				<td><%=reply.getReplyLike()%>/<%=reply.getReplyUnLike()%></td>
 				<td><a href="#">수정</a> / <a href="#">삭제</a> / <a href="#">좋아요</a> / <a href="#">싫어요</a></td>
