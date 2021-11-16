@@ -1,3 +1,4 @@
+<%@page import="mywebsite.beans.Pagination"%>
 <%@page import="mywebsite.beans.BoardDto"%>
 <%@page import="java.util.List"%>
 <%@page import="mywebsite.beans.BoardDao"%>
@@ -9,24 +10,15 @@
 	String column = request.getParameter("column");
 	String keyword = request.getParameter("keyword");
 	
-	//파라미터를 통해 넘어온 값이 있는지 없는지 확인 / 둘 다 존재하면 검색처리
-	boolean isSearch = column != null && keyword != null
-								&& !column.equals("") && !keyword.equals("");
-	//게시판 목록을 	불러오는 코드
-	BoardDao boardDao = new BoardDao();
-	List<BoardDto> boardList;
-	String title = "";
-	if(isSearch){
-		boardList = boardDao.boardSearch(column, keyword);
-		title = "검색";
-	} else {
-		boardList = boardDao.boardList();
-		title = "목록";
-	}
+
+	//Pagination 모듈을 이용하여 계산을 처리하도록 위임
+	Pagination pagination = new Pagination(request);
+	pagination.calculate();
+
 %>
     
 <jsp:include page="/template/top.jsp"></jsp:include>
-<h2>게시판 <%=title%> 페이지</h2>
+<h2>게시판</h2>
 <h3><a href="./insert.jsp">일단 글쓰러가자</a></h3>
 <table width="90%">
 	<thead>
@@ -42,7 +34,7 @@
 		</tr>
 	</thead>
 	<tbody align="center">
-			<%for(BoardDto boardDto : boardList) {%>
+			<%for(BoardDto boardDto : pagination.getList()) {%>
 				<tr>
 					<td>
 						<%=boardDto.getBoardNo()%>
@@ -80,9 +72,45 @@
 			<%} %>
 	</tbody>
 </table>
+
+<!-- 페이지 네비게이터 -->
 <br><br>
-[이전] 1 2 3 4 5 6 7 8 9 10 [다음]
-<br>
+<%if(pagination.isPreviousAvailable()) {
+	if(pagination.isMode()){ %>
+	<!-- 검색용 이전 -->
+	<a href="list.jsp?column=<%=column%>&keyword=<%=keyword%>&p=<%=pagination.getPreviousPageNumber()%>">[이전]</a>
+	<%} else { %>
+	<!-- 목록용 이전 -->
+	<a href="list.jsp?column=?&p=<%=pagination.getPreviousPageNumber()%>">[이전]</a>
+	<%} %>	
+<%} else{%>
+	<a>[이전]</a>
+<%} %>
+
+<%for(int i = pagination.getStartBlock(); i <= pagination.getRealLastBlock(); i++){ %>
+	<%if(pagination.isMode()){ %>
+	<!-- 검색용 링크 -->
+	<a href="list.jsp?column=<%=pagination.getColumn()%>&keyword=<%=pagination.getKeyword()%>&p=<%=i%>"><%=i%></a>
+	<%} else { %>
+	<!-- 목록용 링크 -->
+	<a href="list.jsp?column=&p=<%=i%>"><%=i%></a>
+	<%} %>
+<%} %>
+
+<%if(pagination.isNextAvailable()){ %>
+	<%if(pagination.isMode()){ %>
+		<!-- 검색용 다음 -->
+		<a href="list.jsp?column=<%=column%>&keyword=<%=keyword%>&p=<%=pagination.getNextPageNumber()%>">[다음]</a>
+	<%} else { %>
+		<!-- 목록용 다음 -->
+		<a href="list.jsp?column=?&p=<%=pagination.getNextPageNumber()%>">[다음]</a>
+	<%} %>
+<%} else{%>
+<a>[다음]</a>
+<%} %>
+<br><br>
+
+
 <form action="list.jsp" method="get">
 	<select name="column">
 		<option value="">전체</option>
