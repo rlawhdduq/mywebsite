@@ -224,4 +224,128 @@ public class BoardDao {
 		return result > 0;
 	}
 	
+	//페이징에서 마지막 블록 구하는 메소드 - 검색
+	public int countBlock(String column, String keyword) throws Exception{
+		Connection con = JdbcUtils.connect2();
+		
+		String query = "select count(*) from board where instr(#1, ?) > 0";
+		query = query.replace("#1", column);
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setString(1, keyword);
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		int count = rs.getInt(1);
+		
+		con.close();
+		
+		return count;
+	}
+	
+	//페이징에서 마지막 블록을 구하는 메소드 - 목록
+	public int countBlock() throws Exception{
+		Connection con = JdbcUtils.connect2();
+		
+		String query = "select count(*) from board";
+		PreparedStatement ps = con.prepareStatement(query);
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		int count = rs.getInt(1);
+		
+		con.close();
+		
+		return count;
+	}
+	
+	//페이징 검색 메소드
+	public List<BoardDto> listByTreeSortSearch(int begin, int end, String column, String keyword) throws Exception{
+		Connection con = JdbcUtils.connect2();
+			
+		String query = "select * from ("
+						+ "select rownum rn, tmp.* from("
+						+ "select * from board where instr(#1, ?) > 0 "
+						+ "connect by prior board_no = board_superno "
+						+ "start with board_superno is null "
+						+ "order siblings by board_group desc, board_no asc"
+						+ ")tmp"
+						+")where rn between ? and ? ";
+		query = query.replace("#1", column);
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setString(1, keyword);
+		ps.setInt(2, begin);
+		ps.setInt(3, end);
+		ResultSet rs = ps.executeQuery();
+		
+		List<BoardDto> boardList = new ArrayList<>();
+		while(rs.next()) {
+			BoardDto board = new BoardDto();
+			board.setBoardNo(rs.getInt("board_no"));
+			board.setMemberId(rs.getString("member_id"));
+			board.setMemberNick(rs.getString("member_nick"));
+			board.setBoardTitle(rs.getString("board_title"));
+			board.setBoardContent(rs.getString("board_content"));
+			board.setBoardUploadTime(rs.getDate("board_uploadtime"));
+			board.setBoardHit(rs.getInt("board_hit"));
+			board.setBoardLike(rs.getInt("board_like"));
+			board.setBoardUnlike(rs.getInt("board_unlike"));
+			board.setBoardReply(rs.getInt("board_reply"));
+			board.setBoardSuperno(rs.getInt("board_superno"));
+			board.setBoardGroupno(rs.getInt("board_groupno"));
+			board.setBoardDepth(rs.getInt("board_depth"));
+			board.setBoardAddr(rs.getString("board_addr"));
+			
+			boardList.add(board);
+		}
+		
+		con.close();
+		
+		return boardList;
+	}
+	
+	//페이징 목록 메소드
+	public List<BoardDto> listByTreeSort(int begin, int end) throws Exception{
+		Connection con = JdbcUtils.connect2();
+		
+		String query = "select * from ("
+						+ "select rownum rn, tmp.* from("
+						+ "select * from board "
+						+ "connect by prior board_no = board_superno "
+						+ "start with board_superno is null "
+						+ "order siblings by board_groupno desc, board_no asc"
+						+ ")tmp"
+						+")where rn between ? and ? ";
+		PreparedStatement ps = con.prepareStatement(query);
+		ps.setInt(1, begin);
+		ps.setInt(2, end);
+		ResultSet rs = ps.executeQuery();
+		
+		List<BoardDto> boardList = new ArrayList<>();
+		while(rs.next()) {
+			BoardDto board = new BoardDto();
+			board.setBoardNo(rs.getInt("board_no"));
+			board.setMemberId(rs.getString("member_id"));
+			board.setMemberNick(rs.getString("member_nick"));
+			board.setBoardTitle(rs.getString("board_title"));
+			board.setBoardContent(rs.getString("board_content"));
+			board.setBoardUploadTime(rs.getDate("board_uploadtime"));
+			board.setBoardHit(rs.getInt("board_hit"));
+			board.setBoardLike(rs.getInt("board_like"));
+			board.setBoardUnlike(rs.getInt("board_unlike"));
+			board.setBoardReply(rs.getInt("board_reply"));
+			board.setBoardSuperno(rs.getInt("board_superno"));
+			board.setBoardGroupno(rs.getInt("board_groupno"));
+			board.setBoardDepth(rs.getInt("board_depth"));
+			board.setBoardAddr(rs.getString("board_addr"));
+			
+			boardList.add(board);
+		}
+		
+		con.close();
+		
+		return boardList;
+	}
+	
 }
